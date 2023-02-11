@@ -1,19 +1,23 @@
 <template>
     <div class="main_container">
-        <div v-for="(pokemon, index) in pokemonList" :key="index" class="pokemon_box">
-            <img class="pokemonImg" :src="getImg(index + 1)" alt="">
-            <p class="pokemonName">{{ pokemon.name }}</p>
-            <!-- <ul>
-                <li v-for="type in pokemonInfo" :key="type.type.name"> 
-                    {{ type.id }}
-                </li>
-            </ul> -->
+        <div @click="detailPage(index + 1)" v-for="(pokemon, index) in pokemonList" :key="index" class="pokemon_box">
+            <router-link :to="'/pokemonDetail' + (index + 1)">
+                <img class="pokemonImg" :src="getImg(index + 1)" alt="">
+                <p class="pokemonName">{{ pokemon.name }}</p>
+                <!-- <ul>
+                    <li v-for="type in pokemonInfo" :key="type.type.name">
+                        {{ type.id }}
+                    </li>
+                </ul> -->
+            </router-link>
         </div>
     </div>
 </template>
 
 <script>
 import axios from 'axios'
+import { RouterLink } from 'vue-router';
+import pokemonDetail from './PokemonDetail.vue'
 
 export default {
     name: 'Home',
@@ -34,25 +38,13 @@ export default {
         getImg(id) {
             return `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${id}.png`;
         },
-        // async getPokemonDetails(pokemon) {
-        //     try {
-        //         const res = await axios.get(pokemon.url);
-        //         return res.data;
-        //     } catch (error) {
-        //         console.error(error);
-        //     }
-        // },
+        detailPage(id) {
+            
+        }
     },
     async mounted() {
         this.pokemonList = await this.getPokemons();
     },
-    // computed: {
-    //     pokemonInfo() {
-    //         return this.pokemonList.map(async pokemon => {
-    //             return await this.getPokemonDetails(pokemon);
-    //         })
-    //     },
-    // }
 }
 </script>
 
@@ -91,6 +83,10 @@ export default {
     border-radius: 7%;
     margin-top: 6%;
     width: 91%;
+}
+
+a {
+    text-decoration: none !important;
 }
 
 </style>
