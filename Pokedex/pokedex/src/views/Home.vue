@@ -45,7 +45,6 @@ export default {
     },
     async mounted() {
         this.pokemonList = await this.getPokemons();
-        console.log(this.pokemonInfo);
     },
     // computed: {
     //     pokemonInfo() {
